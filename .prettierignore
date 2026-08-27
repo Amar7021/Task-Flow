@@ -1,0 +1,33 @@
+# Ignore artifacts:
+build
+coverage
+public
+
+# Ignore all HTML files:
+***.html
+
+# Ignore env and lock files:
+.env
+.env.local
+package-lock.json
+
+# Ignore node_modules and git:
+**.git
+**.svn
+**.hg
+**node_modules
+
+# Ignore typescript build files:
+*.d.ts
+
+# Ignore vite config cache:
+.vite
+
+# Ignore eslint and prettier config files:
+.prettierrc
+.prettierrc.json
+.prettierignore
+.eslintcache
+
+# Ignore custom generated files
+*.log
