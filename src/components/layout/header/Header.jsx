@@ -33,9 +33,6 @@ export function Header({ onMenuClick }) {
                 >
                     <Menu className="h-5 w-5" />
                 </Button>
-                <div className="text-muted-foreground hidden text-sm sm:block">
-                    Workspace
-                </div>
             </div>
             <div className="flex items-center gap-1 sm:gap-2">
                 <div className="relative">
@@ -43,7 +40,6 @@ export function Header({ onMenuClick }) {
                         variant="ghost"
                         type="button"
                         onClick={() => setThemeOpen(value => !value)}
-                        // className="flex gap-1"
                     >
                         <Sun className="size-4 dark:hidden" />
                         <Moon className="hidden size-4 dark:block" />

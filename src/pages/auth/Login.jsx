@@ -34,7 +34,6 @@ const Login = () => {
 
     const { mutate, isPending } = useLogin()
     const onSubmit = values => {
-        console.log({ values })
         mutate(values)
     }
 

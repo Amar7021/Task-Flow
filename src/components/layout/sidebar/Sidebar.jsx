@@ -29,11 +29,11 @@ export function Sidebar({ open, onClose }) {
                 />
             )}
             <aside
-                className={`border-sidebar-border bg-sidebar text-sidebar-foreground fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r transition-transform duration-200 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"} `}
+                className={`border-sidebar-border bg-sidebar text-sidebar-foreground fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r transition-transform duration-200 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="border-sidebar-border flex h-16 items-center justify-between border-b px-5">
                     <Link
-                        to="/dashboard"
+                        to="/"
                         className="flex items-center gap-2 font-semibold tracking-tight"
                     >
                         <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg">
@@ -46,7 +46,7 @@ export function Sidebar({ open, onClose }) {
                         variant="ghost"
                         onClick={onClose}
                         className="hover:bg-sidebar-accent lg:hidden"
-                        // aria-label="Close sidebar"
+                        aria-label="Close sidebar"
                     >
                         <X className="size-5" />
                     </Button>
@@ -63,12 +63,11 @@ export function Sidebar({ open, onClose }) {
                                 to={item.href}
                                 onClick={onClose}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"} `
+                                    `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"}`
                                 }
                             >
-                                {" "}
-                                <Icon className="size-4.5 shrink-0" />{" "}
-                                <span>{item.label}</span>{" "}
+                                <Icon className="size-4.5 shrink-0" />
+                                <span>{item.label}</span>
                             </NavLink>
                         )
                     })}
@@ -76,7 +75,7 @@ export function Sidebar({ open, onClose }) {
                 <div className="border-sidebar-border space-y-1 border-t p-3">
                     <Button
                         type="button"
-                        className={"w-full"}
+                        className="w-full"
                         onClick={() => logoutUser()}
                     >
                         <LogOut className="size-4.5" />

@@ -10,14 +10,12 @@ import PageLoader from "../loader/Loader"
 
 const AuthRootLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
-
     const dispatch = useDispatch()
 
     const { isPending, error, data } = useQuery({
         queryKey: ["current-user"],
         queryFn: async () => {
             const response = await api.get("/auth/user")
-            // console.log("current user DATA:", response.data);
             return response.data
         },
         retry: false,
@@ -35,10 +33,7 @@ const AuthRootLayout = () => {
         return <PageLoader loaderText="Loading..." />
     }
 
-    // if (error) return 'An error has occurred: ' + error.message
-
-    if (error?.status === 401 || !error) {
-        // debugger
+    if (error || !data?.user) {
         return <Navigate to="/login" replace />
     }
 
