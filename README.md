@@ -1,15 +1,15 @@
-# TaskFlow - Production-Quality Project Management Dashboard
+# TaskFlow
 
-TaskFlow is a modern, responsive, full-stack project management application built with **React 19**, **Vite**, **shadcn UI**, **Tailwind CSS v4**, **TanStack Query (React Query)**, **Redux Toolkit**, and **Express / MongoDB**.
+TaskFlow is a modern, responsive, application built with **React 19**, **Vite**, **shadcn UI**, **Tailwind CSS v4**, **TanStack Query (React Query)**, and **Redux Toolkit**.
 
 ---
 
 ## Table of Contents
 - [Features](#features)
 - [Architecture & Folder Structure](#architecture--folder-structure)
-- [State Management Strategy](#state-management-strategy)
+- [State Management](#state-management-strategy)
 - [Performance Optimizations](#performance-optimizations)
-- [Libraries Used & Rationale](#libraries-used--rationale)
+- [Libraries Used](#libraries-used)
 - [Installation & Setup](#installation--setup)
 - [Testing](#testing)
 - [Known Limitations & Future Improvements](#known-limitations--future-improvements)
@@ -20,9 +20,8 @@ TaskFlow is a modern, responsive, full-stack project management application buil
 
 ### 1. Authentication & Session Management
 - Login and Register screens with form validation via Yup & React Hook Form.
-- HTTP-only cookie-based authentication with session expiration handling.
-- Protected routes using `AuthRootLayout` with token validation.
-- User profile display with dynamic avatar initials and theme toggling (Light / Dark / System).
+- Protected routes using `AuthRootLayout`.
+- User profile display and theme toggling (Light / Dark / System).
 
 ### 2. Interactive Dashboard
 - 5 Key Performance Indicator (KPI) metrics cards:
@@ -31,8 +30,8 @@ TaskFlow is a modern, responsive, full-stack project management application buil
   - **In Progress Tasks**
   - **Completed Tasks**
   - **High Priority Tasks**
-- **Status Overview Widget**: Dynamic progress bars visualizing task distribution and completion rate.
-- **Recent Tasks Widget**: Quick overview of recently created tasks with direct links.
+- **Status Overview Widget**
+- **Recent Tasks Widget**
 - Fully responsive layout across Mobile, Tablet, and Desktop.
 
 ### 3. Task Management (CRUD & Workflow)
@@ -43,7 +42,7 @@ TaskFlow is a modern, responsive, full-stack project management application buil
 - **Quick Status Changes**: Inline status update via dropdown on task rows.
 
 ### 4. Search, Filter, Sorting & Pagination
-- **Search**: Debounced title search (400ms delay) preventing excessive API requests.
+- **Search**: Debounced title search (300ms delay) preventing excessive API requests.
 - **Filter**: Filter by Status (`Pending`, `In Progress`, `Completed`) and Priority (`Low`, `Medium`, `High`).
 - **Sorting**: Sort by Due Date, Created Date, Priority, or Title with toggleable Ascending/Descending direction.
 - **Pagination**: Server-side pagination with custom page sizes (5, 10, 25, 50 rows per page).
@@ -99,15 +98,13 @@ Task-Flow-Client/
 ### Key Technical Decisions:
 1. **Layered Service Pattern**: API calls are isolated into service files (`service.js`) wrapped by TanStack Query custom hooks (`service-hooks.js`). UI components never call `axios` directly.
 2. **Feature Isolation**: Related schemas, services, sub-components, and hooks live alongside their feature module.
-3. **No Code Comments Policy**: The codebase strictly adheres to clean self-documenting code without single-line or multi-line comments.
 
 ---
 
-## State Management Strategy
+## State Management
 
 1. **Server State (TanStack Query / React Query)**:
    - Manages asynchronous data fetching, caching, background synchronization, and automatic query invalidation.
-   - Mutations (`useCreateTask`, `useUpdateTask`, `useUpdateTaskStatus`, `useDeleteTask`) automatically invalidate `["tasks"]` and `["dashboard-stats"]` query keys for real-time consistency without manual cache refetching.
 2. **Client State (Redux Toolkit)**:
    - Manages synchronous application state: authenticated user session (`authSlice`) and UI theme configuration (`appStartSlice`).
 
@@ -115,7 +112,7 @@ Task-Flow-Client/
 
 ## Performance Optimizations
 
-1. **Debounced Search**: `useDebounce` hook buffers user keystrokes by 400ms before triggering API requests, eliminating request floods.
+1. **Debounced Search**: `useDebounce` hook buffers user keystrokes by 300ms before triggering API requests, eliminating request floods.
 2. **API Query Caching & Smart Invalidation**: Configured with `staleTime: 10000` and `gcTime: 300000` in TanStack Query to prevent redundant network calls on re-renders while keeping data fresh.
 3. **Component Memoization (`React.memo`, `useMemo`, `useCallback`)**:
    - `StatCard` and `TaskTable` are memoized with `React.memo` to prevent re-renders when parent states change.
@@ -124,18 +121,18 @@ Task-Flow-Client/
 
 ---
 
-## Libraries Used & Rationale
+## Libraries Used
 
-| Library | Version | Purpose & Rationale |
-| :--- | :--- | :--- |
-| **React** | `^19.2.8` | Core UI library providing reactive state and component model |
-| **Vite** | `^8.2.2` | Fast modern bundler with lightning-fast HMR and optimized production builds |
-| **Tailwind CSS** | `^4.3.3` | Utility-first styling with modern OKLCH color spaces and CSS variables |
-| **Radix UI** | `^1.6.7` | Headless, accessible primitives (Dialog, Select, DropdownMenu, AlertDialog) |
-| **TanStack Query** | `^5.102.8` | Declarative server-state synchronization, caching, and background refetching |
-| **Redux Toolkit** | `^2.12.0` | Predictable global client state container for authentication and theme |
-| **React Hook Form & Yup** | `^7.86.0` / `^1.7.1` | High-performance form state management with strict schema validation |
-| **Lucide React** | `^1.34.0` | Consistent, lightweight SVG icons |
+| Library | Version |
+| :--- | :--- |
+| **React** | `^19.2.8` |
+| **Vite** | `^8.2.2` |
+| **Tailwind CSS** | `^4.3.3` |
+| **Radix UI** | `^1.6.7` |
+| **TanStack Query** | `^5.102.8` |
+| **Redux Toolkit** | `^2.12.0` |
+| **React Hook Form & Yup** | `^7.86.0` / `^1.7.1` |
+| **Lucide React** | `^1.34.0` |
 | **Sonner** | `^2.0.8` | Modern toast notification library for user feedback |
 | **Vitest & RTL** | `^4.1.11` / `^16.3.3` | Fast Vite-native unit and component test runner |
 
@@ -145,23 +142,13 @@ Task-Flow-Client/
 
 ### Prerequisites
 - Node.js (v18+)
-- MongoDB running locally or MongoDB Atlas connection string
 
-### 1. Clone & Setup Backend
+### 1. Setup Frontend Client
 ```bash
-cd Task-Flow-Server
-npm install
-cp .env.example .env   # Verify MONGO_URI, PORT=5000, ACCESS_TOKEN_SECRET
-npm run dev
-```
-
-### 2. Setup Frontend Client
-```bash
-cd Task-Flow-Client
 npm install
 ```
 
-Configure `.env` in `Task-Flow-Client`:
+Configure `.env` in `Task-Flow`:
 ```env
 VITE_BASE_URL=http://localhost:5000/api/v1
 ```
@@ -176,7 +163,7 @@ Open `http://localhost:5173` (or the port shown in your terminal) in your browse
 
 ## Testing
 
-Automated tests cover UI components, custom hooks, utilities, and API flows.
+Automated tests cover UI components.
 
 Run the test suite:
 ```bash
@@ -202,7 +189,5 @@ npm run build
 
 ## Known Limitations & Future Improvements
 
-1. **Real-time WebSockets**: Implement Socket.io / WebSockets for multi-user live task updates across active sessions.
-2. **Kanban Board View**: Add a drag-and-drop board view (e.g. using `@dnd-kit`) alongside the table view for intuitive task status transitions.
-3. **Role-Based Access Control (RBAC)**: Expand user roles (Admin, Manager, Member) with granular permissions on task deletion and reassignment.
-4. **File Attachments & Activity History**: Support task attachments (S3/Cloudinary) and audit trail tracking changes to task status and due dates.
+1. **Kanban Board View**: Add a drag-and-drop board view (e.g. using `@dnd-kit`) alongside the table view for intuitive task status transitions.
+2. **Role-Based Access Control (RBAC)**: Expand user roles (Admin, Manager, Member) with granular permissions on task deletion and reassignment.
