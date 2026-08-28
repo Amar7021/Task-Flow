@@ -4,9 +4,6 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { toggleTheme } from "./global-state/featureSlice/appStartSlice"
 import { Toaster } from "@/components/ui/sonner"
-import { useQuery } from "@tanstack/react-query"
-import api from "./api/api"
-import PageLoader from "./components/loader/Loader"
 
 function App() {
     const dispatch = useDispatch()

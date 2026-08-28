@@ -37,9 +37,9 @@ const Register = () => {
 
     const { mutate, isPending } = useRegister()
 
-    const onSubmit = ({ confirmPassword, ...values }) => {
-        console.log({ values })
-        mutate(values)
+    const onSubmit = values => {
+        const { username, email, password } = values
+        mutate({ username, email, password })
     }
 
     return (

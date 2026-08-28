@@ -4,7 +4,7 @@ import Login from "@/pages/auth/Login"
 import Register from "@/pages/auth/Register"
 import NotFound from "@/pages/not-found/NotFound"
 import { createBrowserRouter } from "react-router"
-import { Dashboard } from "./lazyRoutes"
+import { Dashboard, Tasks } from "./lazyRoutes"
 
 const router = createBrowserRouter([
     {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 Component: Dashboard,
+            },
+            {
+                path: "/tasks",
+                Component: Tasks,
             },
         ],
     },

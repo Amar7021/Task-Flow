@@ -12,7 +12,6 @@ export const useLogin = () => {
     return useMutation({
         mutationFn: loginServie,
         onSuccess: data => {
-            // console.log({ data })
             if (data.success) {
                 dispatch(setUser(data.user))
                 toast.success(data.message)
@@ -32,7 +31,6 @@ export const useRegister = () => {
     return useMutation({
         mutationFn: registerServie,
         onSuccess: data => {
-            // console.log({ data })
             if (data.success) {
                 dispatch(setUser(data.user))
                 toast.success(data.message)
@@ -52,7 +50,6 @@ export const useLogout = () => {
     return useMutation({
         mutationFn: logoutServie,
         onSuccess: data => {
-            // console.log({ data })
             if (data.success) {
                 dispatch(setUser(data.user))
                 toast.success(data.message)
