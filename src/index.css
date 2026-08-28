@@ -26,7 +26,7 @@
     letter-spacing: 0.18px;
     color-scheme: light dark;
     color: var(--text);
-    background: var(--bg);
+    /* background: var(--bg); */
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -97,17 +97,23 @@
     --sidebar-ring: oklch(0.708 0 0);
 }
 
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     overflow-x: hidden;
     position: relative;
+    background-color: var(--background);
 }
 
 #root {
     width: 100%;
-    min-height: 100svh;
     display: flex;
     flex-direction: column;
 }
@@ -193,9 +199,11 @@ body {
     * {
         @apply border-border outline-ring/50;
     }
+
     body {
         @apply bg-background text-foreground;
     }
+
     html {
         @apply font-sans;
     }

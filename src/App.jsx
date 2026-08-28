@@ -1,11 +1,40 @@
-import { Button } from "@/components/ui/button"
+import { RouterProvider } from "react-router"
+import router from "./routes/Routes"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { toggleTheme } from "./global-state/featureSlice/appStartSlice"
+import { Toaster } from "@/components/ui/sonner"
+import { useQuery } from "@tanstack/react-query"
+import api from "./api/api"
+import PageLoader from "./components/loader/Loader"
 
 function App() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const stored = localStorage.getItem("theme") || "system"
+        dispatch(toggleTheme(stored))
+    }, [dispatch])
+
+    useEffect(() => {
+        const media = window.matchMedia("(prefers-color-scheme: dark)")
+
+        const listener = () => {
+            const stored = localStorage.getItem("theme")
+            if (!stored) {
+                dispatch(toggleTheme("system"))
+            }
+        }
+
+        media.addEventListener("change", listener)
+        return () => media.removeEventListener("change", listener)
+    }, [dispatch])
+
     return (
-        <div className="">
-            <div className="text-3xl">React App</div>
-            <Button>Shad CN</Button>
-        </div>
+        <>
+            <Toaster />
+            <RouterProvider router={router} />
+        </>
     )
 }
 
