@@ -37,7 +37,7 @@ const AuthRootLayout = () => {
 
     // if (error) return 'An error has occurred: ' + error.message
 
-    if (error?.status === 401) {
+    if (error?.status === 401 || !error) {
         // debugger
         return <Navigate to="/login" replace />
     }
